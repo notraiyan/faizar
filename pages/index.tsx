@@ -14,10 +14,10 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="#">Faizar.codes!</a>
+          Welcome to <a href="#">Faizar!</a>
         </h1>
 
-        <Image src="/faizar.png" alt="faizar" width={200} height={200} />
+        <Image src="/faizar.jpg" alt="faizar" width={200} height={400} />
       </main>
 
       <footer className={styles.footer}>
