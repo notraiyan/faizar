@@ -2,9 +2,9 @@ name: faizar-dev
 faizar-dev:
   component: '@sls-next/serverless-component@latest'
   inputs:
-    bucketName: faizar-codes
+    bucketName: faizarbucket
     description: "Lambda@Edge for cube-burst"
-    bucketRegion: ap-south-1
+    bucketRegion: ap-southeast-1
     cloudfront:
       distributionId: "E1ZKS6YZHIQHRK"
     name:
@@ -18,7 +18,6 @@ faizar-dev:
 
     publicDirectoryCache: true
     useServerlessTraceTarget: true
-    domain: faizar.codes
     timeout: 30
   plugins:
     - serverless-offline
