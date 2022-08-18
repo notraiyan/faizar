@@ -7,10 +7,10 @@ faizar-dev:
     bucketRegion: ap-southeast-1
     cloudfront:
       distributionId: "E1ZKS6YZHIQHRK"
-    name:
-      defaultLambda: faizar-lambda
-      apiLambda: faizar-lambda
-      imageLambda: faizar-lambda
+    # name:
+    #   defaultLambda: faizar-lambda
+    #   apiLambda: faizar-lambda
+    #   imageLambda: faizar-lambda
     build:
       env:
         AWS_ACCESS_KEY_ID: ${env.AWS_ACCESS_KEY_ID}
