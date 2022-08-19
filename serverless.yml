@@ -40,11 +40,14 @@ service: serverless-zombocom
 plugins:
   - serverless-s3-sync
 
-custom:
-
 provider:
   name: aws
   runtime: nodejs6.10
+
+build:
+  env:
+    AWS_ACCESS_KEY_ID: ${env.AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${env.AWS_SECRET_ACCESS_KEY}
 
 resources:
   Resources:
@@ -57,11 +60,8 @@ resources:
           IndexDocument: ./out/index.html
 
 custom:
-  hostedZoneName: serverless-zombo.com
-  aliasHostedZoneId: Z3AQBSTGFYJSTF    # us-east-1
-  aliasDNSName: s3-website-us-east-1.amazonaws.com
   s3Sync:
-    - bucketName: ${self:custom.hostedZoneName}
+    - bucketName: faizarbucket
       localDir: static
 
 StaticSiteS3BucketPolicy:
@@ -87,13 +87,13 @@ StaticSiteS3BucketPolicy:
               ]
             ]
 
-    DnsRecord:
-      Type: "AWS::Route53::RecordSet"
-      Properties:
-        AliasTarget:
-          DNSName: ${self:custom.aliasDNSName}
-          HostedZoneId: ${self:custom.aliasHostedZoneId}
-        HostedZoneName: ${self:custom.siteName}.
-        Name:
-          Ref: StaticSite
-        Type: 'A'
+    # DnsRecord:
+    #   Type: "AWS::Route53::RecordSet"
+    #   Properties:
+    #     AliasTarget:
+    #       DNSName: ${self:custom.aliasDNSName}
+    #       HostedZoneId: ${self:custom.aliasHostedZoneId}
+    #     HostedZoneName: ${self:custom.siteName}.
+    #     Name:
+    #       Ref: StaticSite
+    #     Type: 'A'
