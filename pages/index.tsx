@@ -17,6 +17,7 @@ const Home: NextPage = () => {
         </h1>
 
         <img src="/faizar.jpg" alt="faizar" width={200} height={400} />
+        <img src="/vercel.svg" alt="Vercel Logo" width={200} height={400} />
       </main>
 
       <footer className={styles.footer}>
