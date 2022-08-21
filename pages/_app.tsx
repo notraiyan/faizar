@@ -103,7 +103,12 @@ const App = ({ Component, pageProps }: AppProps) => {
               },
               detectRetina: true,
             }}
-            style={bgStyle}
+            style={{ position: "absolute",
+            width: "100%",
+            zIndex: -1,
+            top: 0,
+            left: 0,
+            opacity: 0.5, }}
           />
         <Component {...pageProps} />
       </>
