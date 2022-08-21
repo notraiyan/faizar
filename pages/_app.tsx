@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
+import { Engine } from 'tsparticles-engine';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const bgStyle = {
@@ -13,7 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     left: 0,
     opacity: 0.5,
 }
-    const particlesInit = useCallback(async (engine) => {
+    const particlesInit = useCallback(async (engine: Engine) => {
         console.log(engine);
         // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
         // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -21,7 +22,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         await loadFull(engine);
     }, []);
 
-    const particlesLoaded = useCallback(async (container) => {
+    const particlesLoaded = useCallback(async (container: any) => {
         await console.log(container);
     }, []);
 
