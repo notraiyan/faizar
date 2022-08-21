@@ -1,163 +1,98 @@
-# name: faizar-dev
-# faizar-dev:
-#   component: '@sls-next/serverless-component@latest'
-#   inputs:
-#     bucketName: faizarbucket
-#     description: "Lambda@Edge for cube-burst"
-#     bucketRegion: ap-southeast-1
-#     cloudfront:
-#       distributionId: "E1ZKS6YZHIQHRK"
-#     name:
-#       defaultLambda: faizar-lambda
-#       apiLambda: faizar-lambda
-#       imageLambda: faizar-lambda
-#     build:
-#       env:
-#         AWS_ACCESS_KEY_ID: ${env.AWS_ACCESS_KEY_ID}
-#         AWS_SECRET_ACCESS_KEY: ${env.AWS_SECRET_ACCESS_KEY}
+name: faizar-dev
+faizar-dev:
+  component: '@sls-next/serverless-component@latest'
+  inputs:
+    bucketName: faizarbucket
+    description: "Lambda@Edge for cube-burst"
+    bucketRegion: ap-southeast-1
+    cloudfront:
+      distributionId: "E1ZKS6YZHIQHRK"
+    name:
+      defaultLambda: faizar-lambda
+      apiLambda: faizar-lambda
+      imageLambda: faizar-lambda
+    build:
+      env:
+        AWS_ACCESS_KEY_ID: ${env.AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${env.AWS_SECRET_ACCESS_KEY}
 
-#     publicDirectoryCache: true
-#     useServerlessTraceTarget: true
-#     timeout: 30
-#   plugins:
-#     - serverless-offline
-#     - serverless-domain-manager
-#     - serverless-webpack
-#     - serverless-webpack-prisma
-#   package:
-#     patterns:
-#       - '!node_modules/.prisma/client/libquery_engine-*'
-#       - 'node_modules/.prisma/client/libquery_engine-rhel-*'
-#       - '!node_modules/prisma/libquery_engine-*'
-#       - '!node_modules/@prisma/engines/**'
-#   custom:
-#     webpack:
-#       includeModules: true
-#       packagerOptions:
-#         scripts:
+    publicDirectoryCache: true
+    useServerlessTraceTarget: true
+    timeout: 30
+  plugins:
+    - serverless-offline
+    - serverless-domain-manager
+    - serverless-webpack
+    - serverless-webpack-prisma
+  package:
+    patterns:
+      - '!node_modules/.prisma/client/libquery_engine-*'
+      - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+      - '!node_modules/prisma/libquery_engine-*'
+      - '!node_modules/@prisma/engines/**'
+  custom:
+    webpack:
+      includeModules: true
+      packagerOptions:
+        scripts:
 
-# service: faizar
-# plugins:
-#   - serverless-s3-sync
+# service: simply-serverless-web
 
 # provider:
 #   name: aws
-#   runtime: nodejs6.10
+#   runtime: nodejs16.x
 
-# build:
-#   env:
-#     AWS_ACCESS_KEY_ID: ${env.AWS_ACCESS_KEY_ID}
-#     AWS_SECRET_ACCESS_KEY: ${env.AWS_SECRET_ACCESS_KEY}
+# plugins:
+#   - serverless-sync-s3buckets
 
-# custom:
-#   hostedZoneName: serverless-zombo.com
-#   aliasHostedZoneId: Z3AQBSTGFYJSTF    # us-east-1
-#   aliasDNSName: s3-website-us-east-1.amazonaws.com
-#   s3Sync:
-#     - bucketName: ${self:custom.hostedZoneName}
-#       localDir: out
-
+# # Raw AWS CloudFormation goes in here.
 # resources:
 #   Resources:
-#     StaticSite:
+#     ## Specifying the S3 Bucket
+#     SimplyServerlessSite:
 #       Type: AWS::S3::Bucket
 #       Properties:
+#         # Generate a name based on the stage
+#         BucketName: simply-serverless-web
 #         AccessControl: PublicRead
-#         BucketName: ${self:custom.siteName}
 #         WebsiteConfiguration:
 #           IndexDocument: index.html
+#           ErrorDocument: index.html
 
-# StaticSiteS3BucketPolicy:
-#   Type: AWS::S3::BucketPolicy
-#   Properties:
-#     Bucket:
-#       Ref: StaticSite
-#     PolicyDocument:
-#       Statement:
-#         - Sid: PublicReadGetObject
-#           Effect: Allow
-#           Principal: "*"
-#           Action:
-#           - s3:GetObject
-#           Resource:
-#             Fn::Join: [
-#               "", [
-#                 "arn:aws:s3:::",
-#                 {
-#                   "Ref": "StaticSite"
-#                 },
-#                 "/*"
-#               ]
-#             ]
-
-#     DnsRecord:
-#       Type: "AWS::Route53::RecordSet"
+#     StaticSiteS3BucketPolicy:
+#       Type: AWS::S3::BucketPolicy
 #       Properties:
-#         AliasTarget:
-#           DNSName: ${self:custom.aliasDNSName}
-#           HostedZoneId: ${self:custom.aliasHostedZoneId}
-#         HostedZoneName: ${self:custom.siteName}.
-#         Name:
-#           Ref: StaticSite
-#         Type: 'A'
+#         Bucket:
+#           Ref: SimplyServerlessSite
+#         PolicyDocument:
+#           Statement:
+#             - Sid: PublicReadGetObject
+#               Effect: Allow
+#               Principal: '*'
+#               Action:
+#                 - s3:GetObject
+#               Resource:
+#                 Fn::Join: [
+#                   "", [
+#                   "arn:aws:s3:::",
+#                   {
+#                     "Ref": SimplyServerlessSite
+#                   },
+#                   "/*"
+#                 ]
+#                 ]
 
-service: simply-serverless-web
+#   Outputs:
+#     SimplyServerlessSiteBucketName:
+#       Value:
+#         Ref: SimplyServerlessSite
+#     SimplyServerlessSiteURL:
+#       Value:
+#         Fn::GetAtt: [ "SimplyServerlessSite", "WebsiteURL" ]
 
-provider:
-  name: aws
-  runtime: nodejs16.x
-
-plugins:
-  - serverless-sync-s3buckets
-
-# Raw AWS CloudFormation goes in here.
-resources:
-  Resources:
-    ## Specifying the S3 Bucket
-    SimplyServerlessSite:
-      Type: AWS::S3::Bucket
-      Properties:
-        # Generate a name based on the stage
-        BucketName: simply-serverless-web
-        AccessControl: PublicRead
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: index.html
-
-    StaticSiteS3BucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket:
-          Ref: SimplyServerlessSite
-        PolicyDocument:
-          Statement:
-            - Sid: PublicReadGetObject
-              Effect: Allow
-              Principal: '*'
-              Action:
-                - s3:GetObject
-              Resource:
-                Fn::Join: [
-                  "", [
-                  "arn:aws:s3:::",
-                  {
-                    "Ref": SimplyServerlessSite
-                  },
-                  "/*"
-                ]
-                ]
-
-  Outputs:
-    SimplyServerlessSiteBucketName:
-      Value:
-        Ref: SimplyServerlessSite
-    SimplyServerlessSiteURL:
-      Value:
-        Fn::GetAtt: [ "SimplyServerlessSite", "WebsiteURL" ]
-
-custom:
-  # Load our secret environment variables based on the current stage.
-  # Fallback to default if it is not in prod.
-  syncS3Buckets:
-    - bucketRef: SimplyServerlessSite
-      localDir: out
+# custom:
+#   # Load our secret environment variables based on the current stage.
+#   # Fallback to default if it is not in prod.
+#   syncS3Buckets:
+#     - bucketRef: SimplyServerlessSite
+#       localDir: out

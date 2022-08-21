@@ -13,8 +13,10 @@
   "dependencies": {
     "next": "12.1.6",
     "pixi.js": "^6.5.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "react-tsparticles": "^2.2.2",
+    "tsparticles": "^2.2.2"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.6",
