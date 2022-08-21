@@ -6,14 +6,6 @@ import { useCallback } from "react";
 import { Engine } from 'tsparticles-engine';
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const bgStyle = {
-    position: "absolute",
-    width: "100%",
-    zIndex: -1,
-    top: 0,
-    left: 0,
-    opacity: 0.5,
-}
     const particlesInit = useCallback(async (engine: Engine) => {
         console.log(engine);
         // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -35,7 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             options={{
               background: {
                 color: {
-                  value: "#0d47a1",
+                  value: "transparent",
                 },
               },
               fpsLimit: 120,
@@ -63,10 +55,10 @@ const App = ({ Component, pageProps }: AppProps) => {
               },
               particles: {
                 color: {
-                  value: "#ffffff",
+                  value: "#0d47a1",
                 },
                 links: {
-                  color: "#ffffff",
+                  color: "#0d47a1",
                   distance: 150,
                   enable: true,
                   opacity: 0.5,
@@ -108,7 +100,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             zIndex: -1,
             top: 0,
             left: 0,
-            opacity: 0.5, }}
+            opacity: 0.7, }}
           />
         <Component {...pageProps} />
       </>
