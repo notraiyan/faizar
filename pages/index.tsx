@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="#">Faizar!</a>
         </h1>
-
+        scroll on your own risk
 
         <img src="/dp.jpg" alt="display picture and deploy" width={400} height={400} />
       </main>
