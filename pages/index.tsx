@@ -18,8 +18,6 @@ const Home: NextPage = () => {
           Welcome to <a href="#">Faizar!</a>
         </h1>
 
-
-        <img src="/dp.jpg" alt="display picture and deploy" width={400} height={400} />
       </main>
 
       <footer className={styles.footer}>
