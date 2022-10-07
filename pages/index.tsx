@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>Faizar!</title>
-        <meta name="description" content="portfolio in next js" />
+        <meta name="description" content="portfolio in nextjs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Particles id="tsparticles" />
