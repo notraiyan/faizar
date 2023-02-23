@@ -1,0 +1,10 @@
+name: Cron Job
+on:
+  schedule:
+    - cron: '* * * * *' # runs every day at midnight UTC
+jobs:
+  cron_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Bash script
+      run: bash script.sh
